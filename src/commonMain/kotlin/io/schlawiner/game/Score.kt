@@ -1,5 +1,7 @@
 package io.schlawiner.game
 
+import io.schlawiner.game.Score.Companion.EMPTY
+
 // use String instead of Term here, since the 'term' could also be "skipped" or "timeout"
 data class Score(val term: String, val difference: Int) {
 
@@ -27,6 +29,9 @@ class NumberScore(val number: Int, players: Players) {
     private val scores: MutableMap<Player, Score> =
         players.associateWith { Score.EMPTY }.toMutableMap()
 
+    val complete: Boolean
+        get() = scores.values.all { it != EMPTY }
+
     operator fun get(player: Player) = scores[player] ?: Score.EMPTY
 
     operator fun set(player: Player, score: Score) {
@@ -49,6 +54,9 @@ class PlayerScore(val player: Player, numbers: Numbers) {
     private val scores: MutableMap<Int, Score> =
         numbers.associateWith { Score.EMPTY }.toMutableMap()
 
+    val complete: Boolean
+        get() = scores.values.all { it != EMPTY }
+
     operator fun get(number: Int) = scores[number] ?: Score.EMPTY
 
     operator fun set(number: Int, score: Score) {
@@ -62,6 +70,9 @@ class Scoreboard(players: Players, numbers: Numbers) {
 
     val numberScores: List<NumberScore> = numbers.map { NumberScore(it, players) }
     val playerScores: List<PlayerScore> = players.map { PlayerScore(it, numbers) }
+
+    val complete: Boolean
+        get() = numberScores.all { it.complete } && playerScores.all { it.complete }
 
     private val _playerSums: MutableMap<Player, Int> = players.associateWith { 0 }.toMutableMap()
     val playerSums: Map<Player, Int>

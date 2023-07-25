@@ -21,7 +21,7 @@ class GameTest {
         )
 
         // ------------------------------------------------------ 16
-        game.dice(Dice(1, 2, 3))
+        game.rollDice(Dice(1, 2, 3))
 
         // human
         var calculation = game.calculate("10 + 2 * 3")
@@ -33,7 +33,7 @@ class GameTest {
         game.score(Score(solution.term, abs(solution.result - game.numbers.current)))
 
         // ------------------------------------------------------ 23
-        game.dice(Dice(4, 3, 1))
+        game.rollDice(Dice(4, 3, 1))
 
         // human
         game.next()
@@ -46,7 +46,7 @@ class GameTest {
         game.score(Score(solution.term, abs(solution.result - game.numbers.current)))
 
         // ------------------------------------------------------ 42
-        game.dice(Dice(2, 5, 6))
+        game.rollDice(Dice(2, 5, 6))
 
         // human
         game.next()

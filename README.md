@@ -13,3 +13,11 @@ Schlawiner is a game of dice where you must reach numbers between 1 and 100 usin
 The differences between the numbers and the calculated results are summed up. The player with the most minor difference wins.
 
 Have fun!
+
+# Play
+
+If you want to play Schlawiner in the terminal, use the provided [KScript](https://github.com/kscripting/kscript) script (make sure you've executed `./gradlew publishToMavenLocal`, before running it).
+
+```shell
+kscript play.kts
+```

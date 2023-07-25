@@ -53,7 +53,7 @@ data class Dice(val a: Int, val b: Int, val c: Int) {
         return used
     }
 
-    override fun toString(): String = "Dice($a, $b, $c)"
+    override fun toString(): String = diceNumbers.joinToString(" ")
 
     companion object {
 

@@ -1,32 +1,12 @@
 package io.schlawiner.game
 
-class Player(val name: String, val human: Boolean, var retries: Int) {
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as Player
-
-        if (name != other.name) return false
-        return human == other.human
-    }
-
-    override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + human.hashCode()
-        return result
-    }
+data class Player(val name: String, val human: Boolean) {
 
     override fun toString(): String = "Player($name ${if (human) "human" else "computer"})"
 
-    fun retry() {
-        retries--
-    }
-
     companion object {
-        fun human(name: String) = Player(name, true, 0)
-        fun computer(name: String) = Player(name, false, 0)
+        fun human(name: String) = Player(name, true)
+        fun computer(name: String) = Player(name, false)
     }
 }
 

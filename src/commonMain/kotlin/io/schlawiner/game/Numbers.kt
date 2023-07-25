@@ -24,7 +24,6 @@ class Numbers internal constructor(private val numbers: List<Int>) : Iterable<In
     }
 
     fun first(): Boolean = current == numbers.first()
-    fun hasNext(): Boolean = iterator.hasNext()
     fun last(): Boolean = current == numbers.last()
 
     // must be independent from private var iterator!

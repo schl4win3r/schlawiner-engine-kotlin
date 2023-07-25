@@ -17,17 +17,28 @@ class Game(
 ) {
 
     private val id: String = randomUUID()
-    private var dice: Dice = Dice.random()
-    private var canceled: Boolean = false
+    private var _dice: Dice = Dice.random()
+    private var _canceled: Boolean = false
+    private val retries: MutableMap<Player, Int> =
+        players.filter { it.human }.associateWith { settings.retries }.toMutableMap()
+
+    val canceled: Boolean
+        get() = _canceled
+    val dice: Dice
+        get() = _dice
     val scoreboard: Scoreboard = Scoreboard(players, numbers)
+    val retriesOfCurrentPlayer: Int
+        get() = retries[players.current] ?: 0
 
     /**
      * Passes the dice to the next player. If the player is the first player, then it's the next number's turn.
      */
     fun next() {
-        players.next()
-        if (players.first()) {
-            numbers.next()
+        if (!isOver()) {
+            players.next()
+            if (players.first()) {
+                numbers.next()
+            }
         }
     }
 
@@ -36,11 +47,11 @@ class Game(
      * `false` otherwise
      */
     fun isOver(): Boolean {
-        return (numbers.hasNext() || !players.last()) && !canceled
+        return _canceled || scoreboard.complete
     }
 
-    fun dice(dice: Dice = Dice.random()) {
-        this.dice = dice
+    fun rollDice(dice: Dice = Dice.random()) {
+        this._dice = dice
     }
 
     /**
@@ -49,9 +60,9 @@ class Game(
      *
      * @return `true` if retry was successful, `false` otherwise
      */
-    fun retry(): Boolean = if (players.current.human && players.current.retries > 0) {
-        players.current.retry()
-        dice()
+    fun retry(): Boolean = if (players.current.human && retriesOfCurrentPlayer > 0) {
+        retries[players.current] = retriesOfCurrentPlayer - 1
+        rollDice()
         true
     } else {
         false
@@ -70,7 +81,7 @@ class Game(
     }
 
     fun cancel() {
-        this.canceled = true
+        this._canceled = true
     }
 
     /**
@@ -85,11 +96,11 @@ class Game(
      */
     fun calculate(expression: String): Calculation {
         val term = expression.toTerm()
-        dice.validate(term)
+        _dice.validate(term)
         val result = term.eval(emptyArray())
         val difference = abs(result - numbers.current)
         return if (difference > 0) {
-            val solutions = algorithm.compute(dice.a, dice.b, dice.c, numbers.current)
+            val solutions = algorithm.compute(_dice.a, _dice.b, _dice.c, numbers.current)
             Calculation(term, numbers.current, solutions.bestSolution())
         } else {
             Calculation(term, numbers.current, Solution(term.print(emptyArray()), result))
@@ -105,7 +116,7 @@ class Game(
      * @return the best solution based on the level
      */
     fun solve(): Solution =
-        algorithm.compute(dice.a, dice.b, dice.c, numbers.current).bestSolution(settings.level)
+        algorithm.compute(_dice.a, _dice.b, _dice.c, numbers.current).bestSolution(settings.level)
 
     fun score(score: Score) {
         scoreboard[players.current, numbers.current] = score
