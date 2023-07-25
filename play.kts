@@ -46,6 +46,7 @@ val players = mutableListOf(Player.human("Player 1"), Player.computer("Computer"
 
 val t = Terminal()
 t.print(BANNER)
+t.println()
 t.main()
 
 fun Terminal.main() {
