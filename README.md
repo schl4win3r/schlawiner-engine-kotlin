@@ -1,6 +1,6 @@
 # Puzzle and Dice Game
 
-Schlawiner is a game of dice where you must reach numbers between 1 and 100 using the basic arithmetics +, -, *, and / in any order. The game is played with three dice. Each dice number can be multiplied by 10 or 100 and used precisely once.
+Schlawiner is a game of dice where you must reach numbers between 1 and 100 using the basic arithmetics −, ×, and ÷ in any order. The game is played with three dice. Each dice number can be multiplied by 10 or 100 and used precisely once.
 
 | Number | Dice Number                                                                                                                                                                                                                                                                                                                                                                                         | Possible Solution | Difference |
 |--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|------------|
