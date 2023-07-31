@@ -55,7 +55,7 @@ detekt {
     buildUponDefaultConfig = true
 
     dependencies {
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.0")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
     }
 }
 
