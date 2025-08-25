@@ -6,7 +6,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class NumbersTest {
-
     @Test
     fun newInstance() {
         val numbers = Numbers(listOf(1, 2, 3, 4, 5))

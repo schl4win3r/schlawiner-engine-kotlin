@@ -6,7 +6,6 @@ import kotlin.test.assertContentEquals
 import kotlin.test.assertFailsWith
 
 class DiceTest {
-
     private val dice = Dice(1, 2, 3)
 
     @Test

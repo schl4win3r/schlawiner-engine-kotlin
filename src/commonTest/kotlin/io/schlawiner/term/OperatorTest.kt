@@ -9,7 +9,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class OperatorTest {
-
     @Test
     fun invalid() {
         assertNull(Operator.toOperator(""))

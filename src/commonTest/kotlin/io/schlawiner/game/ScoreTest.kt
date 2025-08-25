@@ -5,7 +5,6 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class ScoreTest {
-
     @Test
     fun numberScore() {
         val foo = Player.human("foo")

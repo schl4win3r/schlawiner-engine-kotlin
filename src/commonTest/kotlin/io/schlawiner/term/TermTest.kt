@@ -6,7 +6,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class TermTest {
-
     @Test
     fun empty() {
         assertFailsWith<TermException> { "".toTerm() }

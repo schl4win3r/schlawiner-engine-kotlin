@@ -3,7 +3,6 @@ package io.schlawiner.game
 import kotlin.random.Random
 
 class Numbers internal constructor(private val numbers: List<Int>) : Iterable<Int> {
-
     constructor(count: Int) : this(
         buildList {
             repeat(count) {
@@ -24,6 +23,7 @@ class Numbers internal constructor(private val numbers: List<Int>) : Iterable<In
     }
 
     fun first(): Boolean = current == numbers.first()
+
     fun last(): Boolean = current == numbers.last()
 
     // must be independent from private var iterator!

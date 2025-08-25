@@ -1,17 +1,16 @@
 package io.schlawiner.game
 
 data class Player(val name: String, val human: Boolean) {
-
     override fun toString(): String = "Player($name ${if (human) "human" else "computer"})"
 
     companion object {
         fun human(name: String) = Player(name, true)
+
         fun computer(name: String) = Player(name, false)
     }
 }
 
 class Players(private val players: List<Player>) : Iterable<Player> {
-
     init {
         require(players.isNotEmpty()) {
             "No empty players allowed!"
@@ -36,6 +35,7 @@ class Players(private val players: List<Player>) : Iterable<Player> {
     }
 
     fun first(): Boolean = current == players.first()
+
     fun last(): Boolean = current == players.last()
 
     // must be independent from private var iterator!

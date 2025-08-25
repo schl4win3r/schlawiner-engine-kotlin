@@ -15,7 +15,6 @@ class Game(
     val algorithm: Algorithm,
     val settings: Settings,
 ) {
-
     private val id: String = randomUUID()
     private var _dice: Dice = Dice.random()
     private var _canceled: Boolean = false
@@ -60,13 +59,14 @@ class Game(
      *
      * @return `true` if retry was successful, `false` otherwise
      */
-    fun retry(): Boolean = if (players.current.human && retriesOfCurrentPlayer > 0) {
-        retries[players.current] = retriesOfCurrentPlayer - 1
-        rollDice()
-        true
-    } else {
-        false
-    }
+    fun retry(): Boolean =
+        if (players.current.human && retriesOfCurrentPlayer > 0) {
+            retries[players.current] = retriesOfCurrentPlayer - 1
+            rollDice()
+            true
+        } else {
+            false
+        }
 
     /**
      * Skips the current number and scores [Settings.penalty] points as penalty. Does **not** call
@@ -115,8 +115,7 @@ class Game(
      *
      * @return the best solution based on the level
      */
-    fun solve(): Solution =
-        algorithm.compute(_dice.a, _dice.b, _dice.c, numbers.current).bestSolution(settings.level)
+    fun solve(): Solution = algorithm.compute(_dice.a, _dice.b, _dice.c, numbers.current).bestSolution(settings.level)
 
     fun score(score: Score) {
         scoreboard[players.current, numbers.current] = score

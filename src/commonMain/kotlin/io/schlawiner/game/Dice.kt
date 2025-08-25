@@ -6,7 +6,6 @@ import kotlin.random.Random
 class DiceException(message: String) : RuntimeException(message)
 
 data class Dice(val a: Int, val b: Int, val c: Int) {
-
     private val diceNumbers: IntArray = intArrayOf(a, b, c)
 
     fun validate(term: Term) {
@@ -27,13 +26,14 @@ data class Dice(val a: Int, val b: Int, val c: Int) {
 
     fun used(expression: String): BooleanArray = internalUsed(extractNumbers(expression))
 
-    private fun extractNumbers(expression: String): IntArray = NUMBERS.findAll(expression).map {
-        try {
-            it.value.toInt()
-        } catch (e: NumberFormatException) {
-            throw DiceException("Invalid number $it")
-        }
-    }.toList().toIntArray()
+    private fun extractNumbers(expression: String): IntArray =
+        NUMBERS.findAll(expression).map {
+            try {
+                it.value.toInt()
+            } catch (e: NumberFormatException) {
+                throw DiceException("Invalid number $it")
+            }
+        }.toList().toIntArray()
 
     @Suppress("NestedBlockDepth")
     private fun internalUsed(termNumbers: IntArray): BooleanArray {
@@ -56,15 +56,15 @@ data class Dice(val a: Int, val b: Int, val c: Int) {
     override fun toString(): String = diceNumbers.joinToString(" ")
 
     companion object {
-
         private const val MAX_DICE_NUMBER = 7
         private val NUMBERS: Regex = "\\d+".toRegex()
         private val MULTIPLIERS: IntArray = intArrayOf(1, 10, 100)
 
-        fun random(): Dice = Dice(
-            Random.nextInt(1, MAX_DICE_NUMBER),
-            Random.nextInt(1, MAX_DICE_NUMBER),
-            Random.nextInt(1, MAX_DICE_NUMBER),
-        )
+        fun random(): Dice =
+            Dice(
+                Random.nextInt(1, MAX_DICE_NUMBER),
+                Random.nextInt(1, MAX_DICE_NUMBER),
+                Random.nextInt(1, MAX_DICE_NUMBER),
+            )
     }
 }

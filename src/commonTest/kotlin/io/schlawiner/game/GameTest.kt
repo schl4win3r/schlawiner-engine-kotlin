@@ -7,18 +7,18 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class GameTest {
-
     @Test
     fun humanVsComputerDraw() {
         val foo = Player.human("foo")
         val computer = Player.computer("computer")
-        val game = Game(
-            "test-game",
-            Players(listOf(foo, computer)),
-            Numbers(listOf(16, 23, 42)),
-            OperationAlgorithm(),
-            Settings.defaults().copy(level = Level.HARD),
-        )
+        val game =
+            Game(
+                "test-game",
+                Players(listOf(foo, computer)),
+                Numbers(listOf(16, 23, 42)),
+                OperationAlgorithm(),
+                Settings.defaults().copy(level = Level.HARD),
+            )
 
         // ------------------------------------------------------ 16
         game.rollDice(Dice(1, 2, 3))

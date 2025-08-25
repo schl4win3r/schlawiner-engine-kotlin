@@ -4,7 +4,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class TermAlgorithmTest {
-
     @Test
     fun compute() {
         val solutions: Solutions = TermAlgorithm().compute(2, 3, 5, 15)

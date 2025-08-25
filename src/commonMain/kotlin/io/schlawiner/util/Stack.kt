@@ -3,7 +3,6 @@ package io.schlawiner.util
 internal fun <E> mutableStackOf(vararg elements: E) = MutableStack(*elements)
 
 internal class MutableStack<E>(vararg items: E) {
-
     private val elements = items.toMutableList()
 
     fun push(element: E) = elements.add(element)

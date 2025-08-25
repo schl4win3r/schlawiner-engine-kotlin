@@ -61,7 +61,10 @@ private class TermBuilder(private val expression: String) {
         }
     }
 
-    fun add(parent: Term, child: Node) {
+    fun add(
+        parent: Term,
+        child: Node,
+    ) {
         // assign right then left, order is important!
         if (parent.right == null) {
             parent.right = child

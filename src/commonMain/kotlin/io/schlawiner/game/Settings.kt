@@ -8,7 +8,6 @@ data class Settings(
     val autoDice: Boolean,
     val level: Level,
 ) {
-
     @Suppress("MagicNumber")
     companion object {
         fun defaults(): Settings = Settings(60, 5, 3, 8, false, Level.MEDIUM)

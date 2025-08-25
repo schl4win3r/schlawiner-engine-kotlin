@@ -3,9 +3,14 @@ package io.schlawiner.algorithm
 @Suppress("TooManyFunctions")
 class OperationAlgorithm(allowedDifference: Int = DEFAULT_DIFFERENCE) :
     AbstractAlgorithm("Algorithm based on static operations", allowedDifference) {
-
     @Suppress("CyclomaticComplexMethod", "LongMethod")
-    override fun computePermutation(a: Int, b: Int, c: Int, target: Int, solutions: Solutions) {
+    override fun computePermutation(
+        a: Int,
+        b: Int,
+        c: Int,
+        target: Int,
+        solutions: Solutions,
+    ) {
         // a + b + c
         solutions.add(add(a, b, c))
 
@@ -143,80 +148,156 @@ class OperationAlgorithm(allowedDifference: Int = DEFAULT_DIFFERENCE) :
         }
     }
 
-    private fun add(a: Int, b: Int, c: Int): Solution = Solution("$a + $b + $c", a + b + c)
+    private fun add(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("$a + $b + $c", a + b + c)
 
-    private fun addDivide1(a: Int, b: Int, c: Int): Solution = if ((a + b) % c != 0) {
-        Solution.INVALID
-    } else {
-        Solution("($a + $b) / $c", (a + b) / c)
-    }
+    private fun addDivide1(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if ((a + b) % c != 0) {
+            Solution.INVALID
+        } else {
+            Solution("($a + $b) / $c", (a + b) / c)
+        }
 
-    private fun addDivide2(a: Int, b: Int, c: Int): Solution = if (a % (b + c) != 0) {
-        Solution.INVALID
-    } else {
-        Solution("$a / ($b + $c)", a / (b + c))
-    }
+    private fun addDivide2(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if (a % (b + c) != 0) {
+            Solution.INVALID
+        } else {
+            Solution("$a / ($b + $c)", a / (b + c))
+        }
 
-    private fun addMultiply(a: Int, b: Int, c: Int): Solution =
-        Solution("($a + $b) * $c", (a + b) * c)
+    private fun addMultiply(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("($a + $b) * $c", (a + b) * c)
 
-    private fun addSubtract(a: Int, b: Int, c: Int): Solution = Solution("$a + $b - $c", a + b - c)
+    private fun addSubtract(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("$a + $b - $c", a + b - c)
 
-    private fun divide(a: Int, b: Int, c: Int): Solution = if (a % b != 0 || a / b % c != 0) {
-        Solution.INVALID
-    } else {
-        Solution("$a / $b / $c", a / b / c)
-    }
+    private fun divide(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if (a % b != 0 || a / b % c != 0) {
+            Solution.INVALID
+        } else {
+            Solution("$a / $b / $c", a / b / c)
+        }
 
-    private fun divideAdd(a: Int, b: Int, c: Int): Solution = if (a % b != 0) {
-        Solution.INVALID
-    } else {
-        Solution("$a / $b + $c", a / b + c)
-    }
+    private fun divideAdd(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if (a % b != 0) {
+            Solution.INVALID
+        } else {
+            Solution("$a / $b + $c", a / b + c)
+        }
 
-    private fun divideSubtract1(a: Int, b: Int, c: Int): Solution = if (a % b != 0) {
-        Solution.INVALID
-    } else {
-        Solution("$a / $b - $c", a / b - c)
-    }
+    private fun divideSubtract1(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if (a % b != 0) {
+            Solution.INVALID
+        } else {
+            Solution("$a / $b - $c", a / b - c)
+        }
 
-    private fun divideSubtract2(a: Int, b: Int, c: Int): Solution = if (b % c != 0) {
-        Solution.INVALID
-    } else {
-        Solution("$a - $b / $c", a - b / c)
-    }
+    private fun divideSubtract2(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if (b % c != 0) {
+            Solution.INVALID
+        } else {
+            Solution("$a - $b / $c", a - b / c)
+        }
 
-    private fun multiply(a: Int, b: Int, c: Int): Solution = Solution("$a * $b * $c", a * b * c)
+    private fun multiply(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("$a * $b * $c", a * b * c)
 
-    private fun multiplyAdd(a: Int, b: Int, c: Int): Solution = Solution("$a * $b + $c", a * b + c)
+    private fun multiplyAdd(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("$a * $b + $c", a * b + c)
 
-    private fun multiplyDivide(a: Int, b: Int, c: Int): Solution = if (a * b % c != 0) {
-        Solution.INVALID
-    } else {
-        Solution("$a * $b / $c", a * b / c)
-    }
+    private fun multiplyDivide(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if (a * b % c != 0) {
+            Solution.INVALID
+        } else {
+            Solution("$a * $b / $c", a * b / c)
+        }
 
-    private fun multiplySubtract1(a: Int, b: Int, c: Int): Solution =
-        Solution("$a * $b - $c", a * b - c)
+    private fun multiplySubtract1(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("$a * $b - $c", a * b - c)
 
-    private fun multiplySubtract2(a: Int, b: Int, c: Int): Solution =
-        Solution("$a - $b * $c", a - b * c)
+    private fun multiplySubtract2(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("$a - $b * $c", a - b * c)
 
-    private fun subtract(a: Int, b: Int, c: Int): Solution = Solution("$a - $b - $c", a - b - c)
+    private fun subtract(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("$a - $b - $c", a - b - c)
 
-    private fun subtractDivide1(a: Int, b: Int, c: Int): Solution = if ((a - b) % c != 0) {
-        Solution.INVALID
-    } else {
-        Solution("($a - $b) / $c", (a - b) / c)
-    }
+    private fun subtractDivide1(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
+        if ((a - b) % c != 0) {
+            Solution.INVALID
+        } else {
+            Solution("($a - $b) / $c", (a - b) / c)
+        }
 
-    private fun subtractDivide2(a: Int, b: Int, c: Int): Solution =
+    private fun subtractDivide2(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution =
         if (b - c == 0 || a % (b - c) != 0) {
             Solution.INVALID
         } else {
             Solution("$a / ($b - $c)", a / (b - c))
         }
 
-    private fun subtractMultiply(a: Int, b: Int, c: Int): Solution =
-        Solution("($a - $b) * $c", (a - b) * c)
+    private fun subtractMultiply(
+        a: Int,
+        b: Int,
+        c: Int,
+    ): Solution = Solution("($a - $b) * $c", (a - b) * c)
 }

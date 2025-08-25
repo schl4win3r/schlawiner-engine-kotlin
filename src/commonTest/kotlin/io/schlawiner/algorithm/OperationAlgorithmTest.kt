@@ -4,7 +4,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class OperationAlgorithmTest {
-
     @Test
     fun compute() {
         val solutions: Solutions = OperationAlgorithm().compute(2, 3, 5, 15)

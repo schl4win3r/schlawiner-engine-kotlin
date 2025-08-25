@@ -6,7 +6,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PlayersTest {
-
     private val foo = Player.human("foo")
     private val bar = Player.human("bar")
 

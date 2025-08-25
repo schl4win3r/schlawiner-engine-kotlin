@@ -5,30 +5,30 @@ import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
 // @formatter:off
-private val PERMUTATIONS = arrayOf(
-    arrayOf("a + b + c", "a b + c +"),
-    arrayOf("a - b - c", "a b - c -"),
-    arrayOf("a * b * c", "a b * c *"),
-    arrayOf("a / b / c", "a b / c /"),
-    arrayOf("a + b - c", "a b + c -"),
-    arrayOf("a * b / c", "a b * c /"),
-    arrayOf("a * b + c", "a b * c +"),
-    arrayOf("(a + b) * c", "a b + c *"),
-    arrayOf("a * b - c", "a b * c -"),
-    arrayOf("a - b * c", "a b c * -"),
-    arrayOf("(a - b) * c", "a b - c *"),
-    arrayOf("a / b + c", "a b / c +"),
-    arrayOf("(a + b) / c", "a b + c /"),
-    arrayOf("a / (b + c)", "a b c + /"),
-    arrayOf("a / b - c", "a b / c -"),
-    arrayOf("a - b / c", "a b c / -"),
-    arrayOf("(a - b) / c", "a b - c /"),
-    arrayOf("a / (b - c)", "a b c - /"),
-)
+private val PERMUTATIONS =
+    arrayOf(
+        arrayOf("a + b + c", "a b + c +"),
+        arrayOf("a - b - c", "a b - c -"),
+        arrayOf("a * b * c", "a b * c *"),
+        arrayOf("a / b / c", "a b / c /"),
+        arrayOf("a + b - c", "a b + c -"),
+        arrayOf("a * b / c", "a b * c /"),
+        arrayOf("a * b + c", "a b * c +"),
+        arrayOf("(a + b) * c", "a b + c *"),
+        arrayOf("a * b - c", "a b * c -"),
+        arrayOf("a - b * c", "a b c * -"),
+        arrayOf("(a - b) * c", "a b - c *"),
+        arrayOf("a / b + c", "a b / c +"),
+        arrayOf("(a + b) / c", "a b + c /"),
+        arrayOf("a / (b + c)", "a b c + /"),
+        arrayOf("a / b - c", "a b / c -"),
+        arrayOf("a - b / c", "a b c / -"),
+        arrayOf("(a - b) / c", "a b - c /"),
+        arrayOf("a / (b - c)", "a b c - /"),
+    )
 // @formatter:on
 
 class InfixTest {
-
     @Test
     fun empty() {
         assertContentEquals(emptyArray(), infixToRPN(""))

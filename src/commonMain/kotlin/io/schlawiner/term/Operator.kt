@@ -2,7 +2,6 @@ package io.schlawiner.term
 
 @Suppress("MagicNumber")
 enum class Operator(val precedence: Int) {
-
     PLUS(0) {
         override fun toString(): String {
             return "+"
@@ -26,7 +25,6 @@ enum class Operator(val precedence: Int) {
     ;
 
     companion object {
-
         fun toOperator(token: String): Operator? {
             return when (token) {
                 "+" -> PLUS

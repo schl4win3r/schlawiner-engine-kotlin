@@ -12,28 +12,24 @@ class TermException(message: String) : RuntimeException(message)
 data class Assignment(val name: String, val value: Int)
 
 interface Node {
-
     var parent: Node?
     var left: Node?
     var right: Node?
 }
 
 class Value(val value: Int) : Node {
-
     override var parent: Node? = null
     override var left: Node? = null
     override var right: Node? = null
 }
 
 class Variable(val name: String) : Node {
-
     override var parent: Node? = null
     override var left: Node? = null
     override var right: Node? = null
 }
 
 class Term(val operator: Operator) : Node {
-
     override var parent: Node? = null
     override var left: Node? = null
         set(value) {
@@ -52,7 +48,10 @@ class Term(val operator: Operator) : Node {
 
     val values: List<Int>
         get() {
-            fun inOrder(node: Node, values: MutableList<Int>) {
+            fun inOrder(
+                node: Node,
+                values: MutableList<Int>,
+            ) {
                 node.left?.let { inOrder(it, values) }
                 if (node is Value) {
                     values.add(node.value)
@@ -67,7 +66,10 @@ class Term(val operator: Operator) : Node {
 
     val variables: List<Variable>
         get() {
-            fun inOrder(node: Node, variables: MutableList<Variable>) {
+            fun inOrder(
+                node: Node,
+                variables: MutableList<Variable>,
+            ) {
                 node.left?.let { inOrder(it, variables) }
                 if (node is Variable) {
                     variables.add(node)
@@ -82,24 +84,29 @@ class Term(val operator: Operator) : Node {
 
     @Suppress("CyclomaticComplexMethod")
     fun eval(assignments: Array<Assignment>): Int {
-        fun postOrder(node: Node, stack: MutableStack<Int>, assignments: Array<out Assignment>) {
+        fun postOrder(
+            node: Node,
+            stack: MutableStack<Int>,
+            assignments: Array<out Assignment>,
+        ) {
             when (node) {
                 is Term -> {
                     node.left?.let { postOrder(it, stack, assignments) }
                     node.right?.let { postOrder(it, stack, assignments) }
                     val right = stack.pop()
                     val left = stack.pop()
-                    val result = when (node.operator) {
-                        PLUS -> left + right
-                        MINUS -> left - right
-                        TIMES -> left * right
-                        DIVIDED -> {
-                            if (right == 0 || left % right != 0) {
-                                throw TermException("Illegal division: $left / $right")
+                    val result =
+                        when (node.operator) {
+                            PLUS -> left + right
+                            MINUS -> left - right
+                            TIMES -> left * right
+                            DIVIDED -> {
+                                if (right == 0 || left % right != 0) {
+                                    throw TermException("Illegal division: $left / $right")
+                                }
+                                left / right
                             }
-                            left / right
                         }
-                    }
                     stack.push(result)
                 }
 
@@ -117,9 +124,10 @@ class Term(val operator: Operator) : Node {
         }
 
         if (assignments.isNotEmpty()) {
-            val unassigned = variables.filterNot { variable ->
-                assignments.find { assignment -> variable.name == assignment.name } != null
-            }
+            val unassigned =
+                variables.filterNot { variable ->
+                    assignments.find { assignment -> variable.name == assignment.name } != null
+                }
             if (unassigned.isNotEmpty()) {
                 throw TermException(
                     buildString {
@@ -146,7 +154,11 @@ class Term(val operator: Operator) : Node {
             }
         }
 
-        fun inOrder(node: Node, builder: StringBuilder, assignments: Array<out Assignment>) {
+        fun inOrder(
+            node: Node,
+            builder: StringBuilder,
+            assignments: Array<out Assignment>,
+        ) {
             node.left?.let { inOrder(it, builder, assignments) }
             when (node) {
                 is Term -> builder.append(" ${node.operator} ")

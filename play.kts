@@ -24,28 +24,29 @@ import io.schlawiner.game.Settings
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
-val BANNER = """
+val banner =
+    """
 
-                                                           ____
-                                                          /\' .\    _____
-                                                         /: \___\  / .  /\
-                                                         \' / . / /____/..\
-                                                          \/___/  \'  '\  /
-  _________      .__    .__                .__                     \'__'\/
- /   _____/ ____ |  |__ |  | _____ __  _  _|__| ____   ___________
- \_____  \_/ ___\|  |  \|  | \__  \\ \/ \/ /  |/    \_/ __ \_  __ \
- /        \  \___|   Y  \  |__/ __ \\     /|  |   |  \  ___/|  | \/
-/_______  /\___  >___|  /____(____  /\/\_/ |__|___|  /\___  >__|
-        \/     \/     \/          \/               \/     \/
+                                                               ____
+                                                              /\' .\    _____
+                                                             /: \___\  / .  /\
+                                                             \' / . / /____/..\
+                                                              \/___/  \'  '\  /
+      _________      .__    .__                .__                     \'__'\/
+     /   _____/ ____ |  |__ |  | _____ __  _  _|__| ____   ___________
+     \_____  \_/ ___\|  |  \|  | \__  \\ \/ \/ /  |/    \_/ __ \_  __ \
+     /        \  \___|   Y  \  |__/ __ \\     /|  |   |  \  ___/|  | \/
+    /_______  /\___  >___|  /____(____  /\/\_/ |__|___|  /\___  >__|
+            \/     \/     \/          \/               \/     \/
 
 
-""".trimIndent()
+    """.trimIndent()
 
 var settings = Settings.defaults()
 val players = mutableListOf(Player.human("Player 1"), Player.computer("Computer"))
 
 val t = Terminal()
-t.print(BANNER)
+t.print(banner)
 t.println()
 t.main()
 
@@ -174,10 +175,11 @@ fun Terminal.play() {
                     var validTerm = false
                     var expression: String?
                     while (!validTerm && !isOver()) {
-                        expression = StringPrompt(
-                            prompt = "${players.current.name} try to reach ${numbers.current} using $dice",
-                            terminal = this@play,
-                        ).ask()
+                        expression =
+                            StringPrompt(
+                                prompt = "${players.current.name} try to reach ${numbers.current} using $dice",
+                                terminal = this@play,
+                            ).ask()
                         when (expression) {
                             "retry" -> {
                                 if (retry()) {
@@ -296,16 +298,16 @@ class RangePrompt(
     promptSuffix: String = ": ",
     invalidChoiceMessage: String = "Invalid value, choose from ",
 ) : Prompt<Int>(
-    prompt,
-    terminal,
-    default,
-    showDefault,
-    showChoices,
-    hideInput,
-    range.toList(),
-    promptSuffix,
-    invalidChoiceMessage,
-) {
+        prompt,
+        terminal,
+        default,
+        showDefault,
+        showChoices,
+        hideInput,
+        range.toList(),
+        promptSuffix,
+        invalidChoiceMessage,
+    ) {
     override fun convert(input: String): ConversionResult<Int> {
         val choice = input.toIntOrNull()
         if (choice != null) {
@@ -333,16 +335,16 @@ class LevelPrompt(
     promptSuffix: String = ": ",
     invalidChoiceMessage: String = "Invalid value, choose from ",
 ) : Prompt<Level>(
-    prompt,
-    terminal,
-    default,
-    showDefault,
-    showChoices,
-    hideInput,
-    choices,
-    promptSuffix,
-    invalidChoiceMessage,
-) {
+        prompt,
+        terminal,
+        default,
+        showDefault,
+        showChoices,
+        hideInput,
+        choices,
+        promptSuffix,
+        invalidChoiceMessage,
+    ) {
     override fun convert(input: String): ConversionResult<Level> {
         val level = choices.firstOrNull { it.name.equals(input, true) }
         if (level != null) {
