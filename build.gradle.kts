@@ -1,10 +1,10 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
-    kotlin("multiplatform") version "2.2.0"
+    kotlin("multiplatform") version "2.2.10"
     id("maven-publish")
-    id("io.gitlab.arturbosch.detekt") version ("1.22.0")
-    id("org.jlleitschuh.gradle.ktlint") version ("11.3.1")
+    id("io.gitlab.arturbosch.detekt") version ("1.23.8")
+    id("org.jlleitschuh.gradle.ktlint") version ("12.1.1")
 }
 
 group = "io.schlawiner"
@@ -15,14 +15,13 @@ repositories {
 }
 
 kotlin {
+    jvmToolchain(17)
     jvm {
-        jvmToolchain(11)
-        withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
     }
-    js(IR) {
+    js {
         browser {
             testTask {
                 useKarma {
@@ -49,13 +48,16 @@ kotlin {
     }
 }
 
+val detektVersion = "1.23.8"
+val detektConfigPath = "config/detekt/detekt.yml"
+
 detekt {
-    toolVersion = "1.22.0"
-    config = files("config/detekt/detekt.yml")
+    toolVersion = detektVersion
+    config.setFrom(file(detektConfigPath))
     buildUponDefaultConfig = true
 
     dependencies {
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion")
     }
 }
 

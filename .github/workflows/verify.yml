@@ -12,13 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        id: checkout
+      - id: checkout
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - name: Run ktlint
-        uses: github/super-linter/slim@v7
+      - uses: github/super-linter/slim@v7
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -31,37 +29,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        id: checkout
+      - id: checkout
         uses: actions/checkout@v5
-      - name: Set up JDK
-        id: setup-jdk
+      - id: setup-jdk
         uses: actions/setup-java@v5
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          java-version: 17
+          distribution: temurin
           cache: gradle
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Run detekt
-        run: ./gradlew detekt
+      - run: chmod +x gradlew
+      - run: ./gradlew detekt
 
   build:
     name: Build code base
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        id: checkout
+      - id: checkout
         uses: actions/checkout@v5
-      - name: Set up JDK
-        id: setup-jdk
+      - id: setup-jdk
         uses: actions/setup-java@v5
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          java-version: 17
+          distribution: temurin
           cache: gradle
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Gradle build
-        run: ./gradlew build
+      - run: chmod +x gradlew
+      - run: ./gradlew build
