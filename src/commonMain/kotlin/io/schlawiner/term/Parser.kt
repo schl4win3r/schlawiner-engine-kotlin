@@ -3,7 +3,12 @@ package io.schlawiner.term
 import io.schlawiner.util.MutableStack
 import io.schlawiner.util.mutableStackOf
 
+private const val MAX_EXPRESSION_LENGTH = 200
+
 fun String.toTerm(): Term {
+    if (length > MAX_EXPRESSION_LENGTH) {
+        throw TermException("Expression too long (max $MAX_EXPRESSION_LENGTH characters)")
+    }
     val rpn = infixToRPN(this)
     if (rpn.isEmpty()) {
         throw TermException("Invalid term $this")
@@ -31,7 +36,9 @@ fun String.toTerm(): Term {
     return term
 }
 
-private class TermBuilder(private val expression: String) {
+private class TermBuilder(
+    private val expression: String,
+) {
     private val terms: MutableStack<Term> = mutableStackOf()
     private var current: Term? = null
 

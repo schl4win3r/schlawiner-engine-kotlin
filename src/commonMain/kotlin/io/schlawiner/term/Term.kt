@@ -7,9 +7,14 @@ import io.schlawiner.term.Operator.TIMES
 import io.schlawiner.util.MutableStack
 import io.schlawiner.util.mutableStackOf
 
-class TermException(message: String) : RuntimeException(message)
+class TermException(
+    message: String,
+) : RuntimeException(message)
 
-data class Assignment(val name: String, val value: Int)
+data class Assignment(
+    val name: String,
+    val value: Int,
+)
 
 interface Node {
     var parent: Node?
@@ -17,19 +22,25 @@ interface Node {
     var right: Node?
 }
 
-class Value(val value: Int) : Node {
+class Value(
+    val value: Int,
+) : Node {
     override var parent: Node? = null
     override var left: Node? = null
     override var right: Node? = null
 }
 
-class Variable(val name: String) : Node {
+class Variable(
+    val name: String,
+) : Node {
     override var parent: Node? = null
     override var left: Node? = null
     override var right: Node? = null
 }
 
-class Term(val operator: Operator) : Node {
+class Term(
+    val operator: Operator,
+) : Node {
     override var parent: Node? = null
     override var left: Node? = null
         set(value) {

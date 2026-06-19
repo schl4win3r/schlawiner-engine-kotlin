@@ -57,6 +57,9 @@ private fun convert(infix: Array<String>): Array<String> {
                     while (!stack.isEmpty() && stack.peek() != "(") {
                         rpn.add(stack.pop())
                     }
+                    if (stack.isEmpty()) {
+                        throw TermException("Mismatched parentheses")
+                    }
                     stack.pop()
                 }
 

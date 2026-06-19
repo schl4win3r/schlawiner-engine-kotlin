@@ -23,14 +23,14 @@ class TermAlgorithm : AbstractAlgorithm("Algorithm based on variable terms") {
         for (term in ABC) {
             try {
                 solutions.add(Solution(term.print(assignments), term.eval(assignments)))
-            } catch (ignore: TermException) {
+            } catch (_: TermException) {
             }
         }
         if (differentDiceNumbers(a, b, c)) {
             for (term in PERMUTATIONS) {
                 try {
                     solutions.add(Solution(term.print(assignments), term.eval(assignments)))
-                } catch (ignore: TermException) {
+                } catch (_: TermException) {
                 }
             }
         }

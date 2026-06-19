@@ -45,9 +45,7 @@ class Game(
      * @return `true` if there are more numbers or if it's not the last player and the game was not canceled,
      * `false` otherwise
      */
-    fun isOver(): Boolean {
-        return _canceled || scoreboard.complete
-    }
+    fun isOver(): Boolean = _canceled || scoreboard.complete
 
     fun rollDice(dice: Dice = Dice.random()) {
         this._dice = dice

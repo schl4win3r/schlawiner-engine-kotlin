@@ -4,7 +4,8 @@ plugins {
     kotlin("multiplatform") version "2.4.0"
     id("maven-publish")
     id("io.gitlab.arturbosch.detekt") version ("1.23.8")
-    id("org.jlleitschuh.gradle.ktlint") version ("12.1.1")
+    id("org.jlleitschuh.gradle.ktlint") version ("14.2.0")
+    id("org.jetbrains.kotlinx.kover") version ("0.9.8")
 }
 
 group = "io.schlawiner"
@@ -15,7 +16,7 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
     jvm {
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -42,7 +43,7 @@ kotlin {
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
-                implementation(npm("uuid", "9.0.0"))
+                implementation(npm("uuid", "14.0.0"))
             }
         }
     }

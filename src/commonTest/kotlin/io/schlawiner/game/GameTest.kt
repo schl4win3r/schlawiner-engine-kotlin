@@ -1,12 +1,96 @@
 package io.schlawiner.game
 
 import io.schlawiner.algorithm.OperationAlgorithm
+import io.schlawiner.term.TermException
 import kotlin.math.abs
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class GameTest {
+    private val human = Player.human("human")
+    private val computer = Player.computer("computer")
+
+    private fun testGame(numbers: List<Int> = listOf(16, 23, 42)): Game =
+        Game(
+            "test",
+            Players(listOf(human, computer)),
+            Numbers(numbers),
+            OperationAlgorithm(),
+            Settings.defaults(),
+        )
+
+    @Test
+    fun retrySuccess() {
+        val game = testGame()
+        game.rollDice(Dice(1, 1, 1))
+
+        assertTrue(game.retry())
+        assertEquals(2, game.retriesOfCurrentPlayer)
+    }
+
+    @Test
+    fun retryExhausted() {
+        val game = testGame()
+
+        game.retry()
+        game.retry()
+        game.retry()
+        assertFalse(game.retry())
+        assertEquals(0, game.retriesOfCurrentPlayer)
+    }
+
+    @Test
+    fun retryComputerPlayer() {
+        val game = testGame()
+        game.next()
+
+        assertFalse(game.retry())
+    }
+
+    @Test
+    fun skip() {
+        val game = testGame()
+        game.rollDice(Dice(1, 2, 3))
+        game.skip()
+
+        val score = game.scoreboard[human, 16]
+        assertEquals("Skipped", score.term)
+        assertEquals(5, score.difference)
+    }
+
+    @Test
+    fun timeout() {
+        val game = testGame()
+        game.rollDice(Dice(1, 2, 3))
+        game.timeout()
+
+        val score = game.scoreboard[human, 16]
+        assertEquals("Timeout", score.term)
+        assertEquals(5, score.difference)
+    }
+
+    @Test
+    fun cancel() {
+        val game = testGame()
+        assertFalse(game.isOver())
+
+        game.cancel()
+        assertTrue(game.isOver())
+        assertTrue(game.canceled)
+    }
+
+    @Test
+    fun calculateInvalidExpression() {
+        val game = testGame()
+        game.rollDice(Dice(1, 2, 3))
+
+        assertFailsWith<TermException> { game.calculate("invalid") }
+    }
+
     @Test
     fun humanVsComputerDraw() {
         val foo = Player.human("foo")

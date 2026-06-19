@@ -3,9 +3,15 @@ package io.schlawiner.game
 import io.schlawiner.term.Term
 import kotlin.random.Random
 
-class DiceException(message: String) : RuntimeException(message)
+class DiceException(
+    message: String,
+) : RuntimeException(message)
 
-data class Dice(val a: Int, val b: Int, val c: Int) {
+data class Dice(
+    val a: Int,
+    val b: Int,
+    val c: Int,
+) {
     private val diceNumbers: IntArray = intArrayOf(a, b, c)
 
     fun validate(term: Term) {
@@ -27,13 +33,16 @@ data class Dice(val a: Int, val b: Int, val c: Int) {
     fun used(expression: String): BooleanArray = internalUsed(extractNumbers(expression))
 
     private fun extractNumbers(expression: String): IntArray =
-        NUMBERS.findAll(expression).map {
-            try {
-                it.value.toInt()
-            } catch (e: NumberFormatException) {
-                throw DiceException("Invalid number $it")
-            }
-        }.toList().toIntArray()
+        NUMBERS
+            .findAll(expression)
+            .map {
+                try {
+                    it.value.toInt()
+                } catch (e: NumberFormatException) {
+                    throw DiceException("Invalid number $it")
+                }
+            }.toList()
+            .toIntArray()
 
     @Suppress("NestedBlockDepth")
     private fun internalUsed(termNumbers: IntArray): BooleanArray {

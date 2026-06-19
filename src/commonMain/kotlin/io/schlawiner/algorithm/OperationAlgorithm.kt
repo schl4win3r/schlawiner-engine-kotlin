@@ -1,8 +1,9 @@
 package io.schlawiner.algorithm
 
 @Suppress("TooManyFunctions")
-class OperationAlgorithm(allowedDifference: Int = DEFAULT_DIFFERENCE) :
-    AbstractAlgorithm("Algorithm based on static operations", allowedDifference) {
+class OperationAlgorithm(
+    allowedDifference: Int = DEFAULT_DIFFERENCE,
+) : AbstractAlgorithm("Algorithm based on static operations", allowedDifference) {
     @Suppress("CyclomaticComplexMethod", "LongMethod")
     override fun computePermutation(
         a: Int,

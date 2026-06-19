@@ -42,6 +42,35 @@ class TermTest {
     }
 
     @Test
+    fun mismatchedParentheses() {
+        assertFailsWith<TermException> { "1 + 2)".toTerm() }
+        assertFailsWith<TermException> { ")1 + 2(".toTerm() }
+    }
+
+    @Test
+    fun expressionTooLong() {
+        val longExpression = ("1 + ").repeat(100) + "1"
+        assertFailsWith<TermException> { longExpression.toTerm() }
+    }
+
+    @Test
+    fun divisionByZero() {
+        assertFailsWith<TermException> { "10 / 0".toTerm().eval(emptyArray()) }
+    }
+
+    @Test
+    fun nonIntegerDivision() {
+        assertFailsWith<TermException> { "5 / 2".toTerm().eval(emptyArray()) }
+    }
+
+    @Test
+    fun missingAssignment() {
+        assertFailsWith<TermException> {
+            "a + b".toTerm().eval(arrayOf(Assignment("a", 5)))
+        }
+    }
+
+    @Test
     fun eval() {
         assertEquals(10, "2 + 3 + 5".toTerm().eval(emptyArray()))
         assertEquals(11, "2 * 3 + 5".toTerm().eval(emptyArray()))

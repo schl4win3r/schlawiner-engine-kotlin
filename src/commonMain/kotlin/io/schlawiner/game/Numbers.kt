@@ -2,7 +2,9 @@ package io.schlawiner.game
 
 import kotlin.random.Random
 
-class Numbers internal constructor(private val numbers: List<Int>) : Iterable<Int> {
+class Numbers internal constructor(
+    private val numbers: List<Int>,
+) : Iterable<Int> {
     constructor(count: Int) : this(
         buildList {
             repeat(count) {

@@ -3,7 +3,10 @@ package io.schlawiner.algorithm
 import io.schlawiner.game.Level
 import kotlin.math.abs
 
-data class Solution(val term: String, val result: Int) : Comparable<Solution> {
+data class Solution(
+    val term: String,
+    val result: Int,
+) : Comparable<Solution> {
     override fun compareTo(other: Solution): Int =
         if (result != other.result) result - other.result else compareValues(term, other.term)
 
@@ -15,7 +18,10 @@ data class Solution(val term: String, val result: Int) : Comparable<Solution> {
     }
 }
 
-class Solutions(private val target: Int, private val allowedDifference: Int) {
+class Solutions(
+    private val target: Int,
+    private val allowedDifference: Int,
+) {
     private var bestSolution: Solution = Solution.MAX
 
     fun add(solution: Solution) {
