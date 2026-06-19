@@ -1,5 +1,14 @@
 package io.schlawiner.algorithm
 
+/**
+ * Algorithm implementation that uses hard-coded arithmetic operations to find solutions.
+ *
+ * Evaluates 18 distinct operation patterns (e.g. `a + b + c`, `(a - b) * c`, `a / (b + c)`) across all variable
+ * orderings. When all three dice differ, additional permutations are tested. Combined with the 27 multiplier
+ * combinations from [AbstractAlgorithm], this covers the full solution space.
+ *
+ * @param allowedDifference maximum acceptable distance from target (defaults to [DEFAULT_DIFFERENCE])
+ */
 @Suppress("TooManyFunctions")
 class OperationAlgorithm(
     allowedDifference: Int = DEFAULT_DIFFERENCE,

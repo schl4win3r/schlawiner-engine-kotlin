@@ -7,6 +7,19 @@ import io.schlawiner.term.toTerm
 import io.schlawiner.util.randomUUID
 import kotlin.math.abs
 
+/**
+ * Central game orchestrator that owns all game state and coordinates gameplay.
+ *
+ * A game consists of [players] taking turns to reach a sequence of target [numbers] using three [dice] and basic
+ * arithmetic. Human players submit expressions via [calculate]; computer players use [solve] to find optimal
+ * solutions via the [algorithm]. Scores are tracked on the [scoreboard].
+ *
+ * @property name display name for this game
+ * @property players the participating players (human and/or computer)
+ * @property numbers the sequence of target numbers to reach
+ * @property algorithm the strategy used to compute optimal solutions
+ * @property settings game configuration (timeout, penalty, retries, etc.)
+ */
 @Suppress("TooManyFunctions")
 class Game(
     val name: String,
@@ -21,11 +34,18 @@ class Game(
     private val retries: MutableMap<Player, Int> =
         players.filter { it.human }.associateWith { settings.retries }.toMutableMap()
 
+    /** Whether this game has been canceled. */
     val canceled: Boolean
         get() = _canceled
+
+    /** The current dice roll. */
     val dice: Dice
         get() = _dice
+
+    /** The game's score board tracking all players' scores across all numbers. */
     val scoreboard: Scoreboard = Scoreboard(players, numbers)
+
+    /** Number of retries remaining for the current player (0 for computer players). */
     val retriesOfCurrentPlayer: Int
         get() = retries[players.current] ?: 0
 
@@ -47,6 +67,7 @@ class Game(
      */
     fun isOver(): Boolean = _canceled || scoreboard.complete
 
+    /** Rolls new dice (or sets specific [dice] values for testing). */
     fun rollDice(dice: Dice = Dice.random()) {
         this._dice = dice
     }
@@ -74,10 +95,12 @@ class Game(
         scoreboard[players.current, numbers.current] = Score("Skipped", settings.penalty)
     }
 
+    /** Records a timeout penalty for the current player on the current number. */
     fun timeout() {
         scoreboard[players.current, numbers.current] = Score("Timeout", settings.penalty)
     }
 
+    /** Cancels this game, causing [isOver] to return `true`. */
     fun cancel() {
         this._canceled = true
     }
@@ -115,6 +138,7 @@ class Game(
      */
     fun solve(): Solution = algorithm.compute(_dice.a, _dice.b, _dice.c, numbers.current).bestSolution(settings.level)
 
+    /** Records a [score] for the current player on the current number. */
     fun score(score: Score) {
         scoreboard[players.current, numbers.current] = score
     }

@@ -5,6 +5,16 @@ import io.schlawiner.util.mutableStackOf
 
 private const val MAX_EXPRESSION_LENGTH = 200
 
+/**
+ * Parses this infix expression string into a [Term] AST.
+ *
+ * The expression is first converted to reverse Polish notation (RPN) via [infixToRPN], then assembled into a
+ * binary expression tree. Tokens are interpreted as operators (`+`, `-`, `*`, `/`), integer literals, or
+ * variable names.
+ *
+ * @return the root [Term] node of the parsed expression tree
+ * @throws TermException if the expression is too long, empty, malformed, or has mismatched parentheses
+ */
 fun String.toTerm(): Term {
     if (length > MAX_EXPRESSION_LENGTH) {
         throw TermException("Expression too long (max $MAX_EXPRESSION_LENGTH characters)")

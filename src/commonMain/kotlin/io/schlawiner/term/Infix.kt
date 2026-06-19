@@ -2,6 +2,14 @@ package io.schlawiner.term
 
 import io.schlawiner.util.mutableStackOf
 
+/**
+ * Converts an infix expression string to reverse Polish notation (RPN) using the shunting-yard algorithm.
+ *
+ * Handles operator precedence and parenthesized subexpressions. The resulting token array is consumed by the
+ * [Term] builder in [String.toTerm].
+ *
+ * @throws TermException if parentheses are mismatched
+ */
 internal fun infixToRPN(expression: String): Array<String> = convert(split(expression))
 
 private val OPS: Set<Char> = setOf('(', ')', '+', '-', '*', '/')

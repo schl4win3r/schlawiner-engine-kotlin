@@ -5,6 +5,15 @@ import io.schlawiner.term.Term
 import io.schlawiner.term.TermException
 import io.schlawiner.term.toTerm
 
+/**
+ * Algorithm implementation that uses 68 pre-parsed [Term] templates with variable placeholders.
+ *
+ * Each template contains variables `a`, `b`, `c` which are bound to (multiplied) dice values via [Assignment]s at
+ * evaluation time. Templates are split into two groups: [ABC] (18 canonical forms with the default ordering) and
+ * [PERMUTATIONS] (50 additional orderings used only when not all three dice are identical).
+ *
+ * This implementation produces identical results to [OperationAlgorithm], verified by `AlgorithmComparisonTest`.
+ */
 class TermAlgorithm : AbstractAlgorithm("Algorithm based on variable terms") {
     override fun computePermutation(
         a: Int,
