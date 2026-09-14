@@ -1,7 +1,7 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
-    kotlin("multiplatform") version "2.4.10"
+    kotlin("multiplatform") version "2.4.20"
     id("maven-publish")
     id("io.gitlab.arturbosch.detekt") version ("1.23.8")
     id("org.jlleitschuh.gradle.ktlint") version ("14.2.0")
